@@ -1,0 +1,31 @@
+plugins {
+	id 'org.springframework.boot' version '2.4.1'
+	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+	id 'java'
+}
+
+group = 'com.nybble'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+	implementation 'org.springframework.boot:spring-boot-starter-cache'
+	compile("org.projectlombok:lombok:1.16.10")
+	implementation 'org.flywaydb:flyway-core'
+	compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.7.0'
+	runtimeOnly 'mysql:mysql-connector-java'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
+	compile("com.hazelcast:hazelcast:4.0.1")
+	compile("com.hazelcast:hazelcast-spring:4.0.1")
+}
+
+test {
+	useJUnitPlatform()
+}
