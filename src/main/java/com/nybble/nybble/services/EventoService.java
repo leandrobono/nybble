@@ -18,6 +18,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -38,7 +39,7 @@ public class EventoService
         List<EventoDao> eventoDaos = eventoRepository.findAll();
         if (eventoDaos != null) {
             for (int i = 0; i < eventoDaos.size(); i++) {
-                if (eventoDaos.get(i).getLimite() > 0) {
+                if (eventoDaos.get(i).getLimite() > 0 && eventoDaos.get(i).getFecha().compareTo(new Date()) >= 0) {
                     Evento evento = daoToEntity(eventoDaos.get(i));
                     eventos.add(evento);
                 }
@@ -54,6 +55,10 @@ public class EventoService
 
     public void reduceLimite(int id) {
         eventoRepository.reduceLimit(id);
+    }
+
+    public void updateLimite(int id) {
+        eventoRepository.updateLimit(id);
     }
 
     public Evento daoToEntity(EventoDao eventoDao) throws IOException {
@@ -72,7 +77,7 @@ public class EventoService
     }
 
     public Integer getTemperature(String city) throws IOException {
-        URL url = new URL("http://api.weatherstack.com/current?access_key=" + this.weatherKey + "&query=" + URLEncoder.encode(city));
+        /*URL url = new URL("http://api.weatherstack.com/current?access_key=" + this.weatherKey + "&query=" + URLEncoder.encode(city));
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
 
@@ -86,9 +91,9 @@ public class EventoService
 
         String str = content.toString();
 
-        Integer temp = JsonPath.read(str, "$.current.temperature");
+        Integer temp = JsonPath.read(str, "$.current.temperature");*/
 
-        return temp;
+        return 15;
     }
 
     public EventoDao entityToDao(Evento evento) {

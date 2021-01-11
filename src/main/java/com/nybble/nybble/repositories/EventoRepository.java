@@ -21,4 +21,10 @@ public interface EventoRepository extends JpaRepository<EventoDao, Long> {
     @Query(value = "UPDATE eventos SET limite = limite -1 WHERE id = :evento",
             nativeQuery = true)
     void reduceLimit(@Param("evento") int evento);
+
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE eventos SET limite = limite +1 WHERE id = :evento",
+            nativeQuery = true)
+    void updateLimit(@Param("evento") int evento);
 }

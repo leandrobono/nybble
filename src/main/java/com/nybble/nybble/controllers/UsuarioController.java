@@ -57,6 +57,7 @@ public class UsuarioController
 
                 entity.put("id", jwtUser.getId());
                 entity.put("token", jwtService.getToken(jwtUser));
+                entity.put("rol", jwtUser.getRole());
                 return new ResponseEntity<Object>(entity, HttpStatus.OK);
             }
             return new ResponseEntity<Object>(null, HttpStatus.UNAUTHORIZED);
